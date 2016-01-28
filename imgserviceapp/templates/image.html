@@ -1,0 +1,114 @@
+<!DOCTYPE html> {% load staticfiles %} {% load widget_tweaks %}
+<html>
+
+<head>
+  <title>dope</title>
+  <link rel="SHORTCUT ICON" href="{% static 'rocket.png' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1,  maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'custombootstrap.css' %}">
+
+</head>
+
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'all_photos' %}">&#x1f680; dope</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="loadButton"><a href="{% url 'add_new_photo' %}">LOAD A PICTURE</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container imgCont">
+    <div class="row">
+      <div class="col-md-6 col-xs-12 col-md-offset-2">
+        <img src="{{image.img.url}}" class="img-responsive" />
+      </div>
+
+      <div class="col-md-3">
+        <h4>{{ image.title }} by {{ image.photographer }}</h4>
+        <h4>{{image.commentAmount}} &#128172;</h4>
+        <br>
+        <h4>{{image.description}}</h4>
+
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-2">
+
+        <!-- form for leaving a comment -->
+        <br>
+
+
+        <form method="POST">
+          <div class="form-group">
+            {% csrf_token %} {{ form.non_field_errors }}
+            <p>
+              <label for="id_name">Your Name:</label>
+              <input id="id_name" class="form-control" type="text" name="name" maxlength="30" placeholder="Write your name here" />
+              <!-- Error handling -->
+              {% if form.name.errors %} {% for error in form.name.errors %}
+              <p class="text-danger"> {{ error|escape }}</p>
+              {% endfor %} {% endif %}
+            </p>
+
+            <p>
+              <label for="text">Comment (max 1000 characters):</label>
+              <textarea id="id_text" class="form-control" rows="2" type="text" name="text" maxlength="1000" placeholder="Write your comment here"></textarea>
+              <!-- Error handling -->
+              {% if form.text.errors %} {% for error in form.text.errors %}
+              <p class="text-danger"> {{ error|escape }}</p>
+              {% endfor %} {% endif %}
+            </p>
+
+            <input id="submit-all" type="submit" value="Send" class="btn btn-success" />
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+
+    <br>
+    <br>
+    <!-- all comments -->
+    {% for comment in comments %}
+    <div class="row">
+
+      <div class="col-md-6 col-md-offset-2 comment">
+
+
+        <h4 class="commenter">{{comment.name}}</h4>
+        <h4>{{comment.text}}</h4>
+        <h6>on {{comment.createTime}}</h6>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+
+</body>
+
+</html>

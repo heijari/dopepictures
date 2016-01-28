@@ -1,0 +1,71 @@
+<!DOCTYPE html> {% load staticfiles %}
+<html>
+
+<head>
+  <title>dope</title>
+
+<link rel="SHORTCUT ICON" href="{% static 'rocket.png' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'custombootstrap.css' %}">
+</head>
+
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'all_photos' %}">&#x1f680; dope</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="loadButton"><a href="{% url 'add_new_photo' %}">LOAD A PICTURE</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+
+  <!-- Jumbotron with company logo and name -->
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h1>	&#x1f680; dope pictures</h1>
+      <p>the source of all good</p>
+    </div>
+  </div>
+
+
+  <div class="container photos">
+    <div class="row galleryRow">
+      {% for imgs in images %}
+      <a href="{% url 'show_photo' imgs.pk %}">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 img">
+
+                  <h5>{{ imgs.title }} by {{ imgs.photographer }}</h5>
+                  <h6>{{imgs.commentAmount}} &#128172;</h6>
+
+          <div class="col-xs-12 col-sm-6 col-md-offset-4 col-md-3 slidebox">
+          <div style="top: 0px; left: 0px; background: url({{media_url}}{{imgs.thumbnail}});
+              background-position: center; background-size: cover; background-repeat: no-repeat;" class="slide">
+          </div>
+        </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+</body>
+
+</html>
