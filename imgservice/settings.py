@@ -52,7 +52,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-MEDIA_ROOT = 'C:/Users/Nipsu/imgservice/imgservice/media/'
+MEDIA_ROOT = '/media/'
 MEDIA_URL = '/media/'
 ROOT_URLCONF = 'imgservice.urls'
 
@@ -103,5 +103,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-STATIC_ROOT = 'C:/Users/Nipsu/imgservice/imgservice/static/'
+STATIC_ROOT = '/static/'
 STATIC_URL = '/static/'
